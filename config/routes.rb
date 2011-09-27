@@ -1,4 +1,10 @@
 LiveQuestionTool::Application.routes.draw do
+  resources :votes
+
+  resources :posts
+
+  resources :users
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
