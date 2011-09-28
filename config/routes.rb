@@ -8,6 +8,7 @@ LiveQuestionTool::Application.routes.draw do
   resources :system
   match "/system/add_vote" => "system#add_vote"
   match "/system/add_post" => "system#add_post"
+  match "/system/add_reply" => "system#add_reply"
 
   # The priority is based upon order of creation:
   # first created -> highest priority.

@@ -56,9 +56,15 @@ div.field, div.actions {
 }
 
 .post {
+    font-size: 20;
     border-top-style: solid ;
     border-top-color: gray;
     border-bottom-style: solid ;
     border-bottom-color: gray;
     margin-bottom: 5px;
+}
+
+.reply {
+    font-size: 15;
+    margin-left: 10;
 }

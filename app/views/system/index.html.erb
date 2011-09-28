@@ -12,9 +12,24 @@
 <% @posts.each do |post| %>
   <tr>
     <div class="post">
-    <%= h(post.description) %>
+    <b><%= h(post.users_id) %>: </b> <%= h(post.description) %>
+      <% Post.find(:all, :conditions => {:parent => post} ).each do |reply| %>
+          </br>
+          <div class = "reply">
+             <b><%= h(reply.users_id) %>: </b> <%= h(reply.description) %>
+             <%= button_to "Vote reply" , :action => :add_vote, :id => reply, :user_id => 1 %>
+          <b># of votes:</b> <%= reply.num_of_votes %>
+          </div>
+      <% end %>
+
+    </br>
     <b># of votes:</b> <%= post.num_of_votes %>
-    <%= button_to "Vote" , :action => :add_vote, :id => post, :user_id => 1 %>
+      <%= form_tag(:action => :add_reply, :post_id => post, :user_id => 1) do %>
+    <%= text_area_tag(:text) %>
+    <%= submit_tag("Add Reply") %>
+          </br>
+<% end %>
+    <%= button_to "Vote Post" , :action => :add_vote, :id => post, :user_id => 1 %>
     </div>
   </tr>
 <% end %>
