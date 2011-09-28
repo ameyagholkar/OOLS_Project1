@@ -11,5 +11,15 @@ class SystemController < ApplicationController
     @vote.posts_id = params[:id]
     @vote.users_id = params[:user_id]
     @vote.save
+    redirect_to :action => 'index'
+  end
+
+  def add_post
+    @desc = params[:text]
+    @p = Post.new
+    @p.description=@desc
+    @p.users_id = params[:user_id]
+    @p.save
+    redirect_to :action => 'index'
   end
 end

@@ -1,19 +1,21 @@
+<h1>Add Post:</h1>
+  <%= form_tag(:action => :add_post, :user_id => 1) do %>
+    <%= text_area_tag(:text) %>
+    <%= submit_tag("Post") %>
+<% end %>
 <h1>Listing posts</h1>
 
 <table>
   <tr>
-    <th>Description</th>
-    <th>Number of votes</th>
-    <th></th>
-    <th></th>
   </tr>
 
 <% @posts.each do |post| %>
   <tr>
-    <td><%= h(post.description) %></td>
-    <td><%= post.num_of_votes %></td>
-    <td><%= link_to 'Edit', edit_post_path(post) %></td>
-    <td><%= button_to "Vote" , :action => :add_vote, :id => post, :user_id => 1 %> </td>
+    <div class="post">
+    <%= h(post.description) %>
+    <b># of votes:</b> <%= post.num_of_votes %>
+    <%= button_to "Vote" , :action => :add_vote, :id => post, :user_id => 1 %>
+    </div>
   </tr>
 <% end %>
 </table>
