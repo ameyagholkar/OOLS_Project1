@@ -1,18 +1,23 @@
 class SystemController < ApplicationController
   def index
-       @posts = Post.all_posts;
-       @replies = Post.all_replies;
+       @posts = Post.all_posts
+       @replies = Post.all_replies
   end
 
   def add_vote
-    @post = Post.find(params[:id])
-    @post.num_of_votes = @post.num_of_votes + 1
-    @post.save
-    @vote = Vote.new
-    @vote.posts_id = params[:id]
-    @vote.users_id = params[:user_id]
-    @vote.save
-    redirect_to :action => 'index'
+    post = Post.find(params[:id])
+    if post.users_id == params[:user_id]
+      flash[:error] = "You cannot vote for your own Post!"
+    else
+      post.num_of_votes = post.num_of_votes + 1
+      post.save
+      vote = Vote.new
+      vote.posts_id = params[:id]
+      vote.users_id = params[:user_id]
+      vote.save
+      redirect_to :action => 'index'
+    end
+
   end
 
   def add_post

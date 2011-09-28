@@ -8,7 +8,10 @@
 </head>
 <body>
 
-<%= yield %>
+        <% flash.each do |key, value| %>
+          <div class="flash <%= key %>"><%= value %></div>
+        <% end %>
+        <%= yield %>
 
 </body>
 </html>
