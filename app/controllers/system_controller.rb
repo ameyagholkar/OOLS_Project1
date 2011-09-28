@@ -1,6 +1,7 @@
 class SystemController < ApplicationController
   def index
-       @posts = Post.find_top_posts;
+       @posts = Post.all_posts;
+       @replies = Post.all_replies;
   end
 
   def add_vote
@@ -11,5 +12,25 @@ class SystemController < ApplicationController
     @vote.posts_id = params[:id]
     @vote.users_id = params[:user_id]
     @vote.save
+    redirect_to :action => 'index'
+  end
+
+  def add_post
+    @desc = params[:text]
+    @p = Post.new
+    @p.description=@desc
+    @p.users_id = params[:user_id]
+    @p.save
+    redirect_to :action => 'index'
+  end
+
+  def add_reply
+    @desc = params[:text]
+    @p = Post.new
+    @p.description=@desc
+    @p.users_id = params[:user_id]
+    @p.parent = params[:post_id]
+    @p.save
+    redirect_to :action => 'index'
   end
 end
