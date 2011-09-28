@@ -1,0 +1,23 @@
+<h1>Listing posts</h1>
+
+<table>
+  <tr>
+    <th>Description</th>
+    <th>Number of votes</th>
+    <th></th>
+    <th></th>
+  </tr>
+
+<% @posts.each do |post| %>
+  <tr>
+    <td><%= h(post.description) %></td>
+    <td><%= post.num_of_votes %></td>
+    <td><%= link_to 'Edit', edit_post_path(post) %></td>
+    <td><%= button_to "Vote" , :action => :add_vote, :id => post, :user_id => 1 %> </td>
+  </tr>
+<% end %>
+</table>
+
+<br />
+
+<%= link_to 'New Post', new_post_path %>
