@@ -6,7 +6,7 @@ class Post < ActiveRecord::Base
   validates_presence_of :description
 
   def self.find_top_posts
-    all(:order => "num_of_votes DESC" )
+    all(:order => "num_of_votes DESC", :conditions => {:parent => -1} )
   end
 
   def self.find_replies(p)
