@@ -21,7 +21,7 @@
     <div class="post">
     <b><%= h(post.users_id) %>: </b> <%= h(post.description) %>
 
-      <% Post.find(:all, :conditions => {:parent => post} ).each do |reply| %>
+      <% Post.find_replies(post).each do |reply| %>
           <div class = "reply">
              <b><%= h(reply.users_id) %>: </b> <%= h(reply.description) %>
            <b><%= reply.num_of_votes %> Votes</b>

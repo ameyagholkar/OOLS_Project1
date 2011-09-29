@@ -1,6 +1,6 @@
 class SystemController < ApplicationController
   def index
-       @posts = Post.all_posts
+       @posts = Post.find_top_posts
   end
 
   def add_vote
