@@ -23,10 +23,6 @@ textarea {
     margin-left: 10px;
 }
 
-input {
-
-}
-
 div.field, div.actions {
   margin-bottom: 10px;
 }
@@ -84,7 +80,11 @@ div.field, div.actions {
     width: 78%;
     background-color: #a9a9a9;
     border-top-style: solid;
-    border-top-color: lightgray;
+    border-top-color: gray;
+    border-left-style: solid;
+    border-left-color: gray;
+    border-right-style: solid;
+    border-right-color: gray;
     border-bottom-style: solid;
     border-bottom-color: black;
     margin-bottom: 3px;
@@ -96,6 +96,16 @@ div.field, div.actions {
     font-size: 12px;
     margin-left: 10px;
     margin-right: 10px;
+}
+
+.flash {
+    background-color: yellow;
+    color: red;
+    margin-top: 5px;
+    font-size: 20px;
+    padding: 5px;
+    text-align: center;
+    border: solid red;
 }
 
 .reply_button {
