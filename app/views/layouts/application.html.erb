@@ -1,11 +1,11 @@
 <html>
   <head>
-    <title>Posting System</title>
+    <title>Live Questions</title>
     <%= stylesheet_link_tag "backchannel" , :media => "all" %>
   </head>
   <body>
     <a href="/system"><div id="banner" >
-      <h1 class="page_title"><b><%= @page_title || "Posting System" %></b></h1>
+      <h1 class="page_title"><b><%= @page_title || "Live Questions" %></b></h1>
     </div></a>
        <% flash.each do |key, value| %>
           <div class="flash <%= key %>"><%= value %></div>

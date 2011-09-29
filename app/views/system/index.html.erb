@@ -5,14 +5,15 @@
 
 <!-- This if-else block prevents adding of posts if not signed in -->
 <% if session[:id] %>
-<div class="logged_in_as">Logged in as <%= session[:username] %> <%= link_to "Log Out", logout_path %></div>
-<hr />
-  <%= form_tag(:action => :add_post, :user_id => session[:id]) do %>
-    <%= text_area_tag(:text) %>
-    <%= submit_tag("New Post") %>
+    <div class="logged_in_as">Logged in as <%= session[:username] %> <%= link_to "Log Out", logout_path %></div>
+    <hr />
+    <%= form_tag(:action => :add_post, :user_id => session[:id]) do %>
+        <%= text_area_tag(:text, "Enter text for new post here.") %>
+        <%= submit_tag("New Post") %>
     <% end %>
 <% end %>
-<h1>Listing posts</h1>
+
+<hr />
 
 <table>
 
@@ -21,25 +22,25 @@
     <div class="post">
     <b><%= h(get_username(post.users_id)) %>: </b> <%= h(post.description) %>
 
-      <% Post.find_replies(post).each do |reply| %>
-          <div class = "reply">
-             <b><%= h(get_username(reply.users_id)) %>: </b> <%= h(reply.description) %>
-           <b><%= reply.num_of_votes %> Votes</b>
+    <% Post.find_replies(post).each do |reply| %>
+        <div class = "reply">
+            <b><%= h(get_username(reply.users_id)) %>: </b> <%= h(reply.description) %>
+            <b><%= reply.num_of_votes %> Votes</b>
             <% if session[:id] %>
-             <span class="reply_button"><%= button_to "Vote reply" , :action => :add_vote, :id => reply, :user_id => session[:id] %></span>
-             <% end %>
-          </div>
-      <% end %>
+                <span class="reply_button"><%= button_to "Vote reply" , :action => :add_vote, :id => reply, :user_id => session[:id] %></span>
+            <% end %>
+        </div>
+    <% end %>
 
     <br />
+    <% if session[:id] %>
+        <%= form_tag(:action => :add_reply, :post_id => post, :user_id => session[:id]) do %>
+            <%= text_area_tag(:text, "Enter reply to post here.") %>
+            <%= submit_tag("Add Reply") %>
+        <% end %>
+        <br />
+    <% end %>
     <b><%= post.num_of_votes %> Votes</b>
-     <% if session[:id] %>
-      <%= form_tag(:action => :add_reply, :post_id => post, :user_id => session[:id]) do %>
-        <%= text_area_tag(:text) %>
-      <%= submit_tag("Add Reply") %>
-     <% end %>
-     <br>
-<% end %>
     <% if session[:id] %>
     <%= button_to "Vote Post" , :action => :add_vote, :id => post, :user_id => session[:id] %>
     <% end %>
