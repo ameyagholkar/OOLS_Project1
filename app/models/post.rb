@@ -5,7 +5,7 @@ class Post < ActiveRecord::Base
 
   validates_presence_of :description
 
-  named_scope :all_posts, :conditions => {:parent => -1}
+  named_scope :all_posts, :conditions => {:parent => -1}, :order => "num_of_votes DESC"
 
   named_scope :all_replies, :conditions => {:parent_not => -1}
 
