@@ -5,11 +5,12 @@ class Post < ActiveRecord::Base
 
   validates_presence_of :description
 
-  named_scope :all_posts, :conditions => {:parent => -1}, :order => "num_of_votes DESC"
-
-  named_scope :all_replies, :conditions => {:parent_not => -1}, :order => "num_of_votes DESC"
-
   def self.find_top_posts
-    all( :order => "num_of_votes DESC" )
+    all(:order => "num_of_votes DESC", :conditions => {:parent => -1} )
+  end
+
+  def self.find_replies(p)
+    all(:order => "num_of_votes DESC", :conditions => {:parent => p} )
+
   end
 end
