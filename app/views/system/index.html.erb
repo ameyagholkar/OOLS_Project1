@@ -1,21 +1,20 @@
+<hr />
 <% if !session[:id] %>
     <p><%= link_to "Login to Post", login_path %></p>
 <% end %>
-<h1><%= session[:username] %> is allowed to Add Posts ID: <%= session[:id] %></h1>
 
 <!-- This if-else block prevents adding of posts if not signed in -->
 <% if session[:id] %>
-<%= "Add Post:" %>
+<div class="logged_in_as">Logged in as <%= session[:username] %> <%= link_to "Log Out", logout_path %></div>
+<hr />
   <%= form_tag(:action => :add_post, :user_id => session[:id]) do %>
     <%= text_area_tag(:text) %>
-    <%= submit_tag("Post") %>
+    <%= submit_tag("New Post") %>
     <% end %>
 <% end %>
 <h1>Listing posts</h1>
 
 <table>
-  <tr>
-  </tr>
 
 <% @posts.each do |post| %>
   <tr>
@@ -23,18 +22,17 @@
     <b><%= h(get_username(post.users_id)) %>: </b> <%= h(post.description) %>
 
       <% Post.all(:conditions => {:parent => post}, :order => "num_of_votes DESC" ).each do |reply| %>
-          <br>
           <div class = "reply">
              <b><%= h(get_username(reply.users_id)) %>: </b> <%= h(reply.description) %>
-             <% if session[:id] %>
-             <%= button_to "Vote reply" , :action => :add_vote, :id => reply, :user_id => session[:id] %>
+           <b><%= reply.num_of_votes %> Votes</b>
+            <% if session[:id] %>
+             <span class="reply_button"><%= button_to "Vote reply" , :action => :add_vote, :id => reply, :user_id => session[:id] %></span>
              <% end %>
-           <b># of votes:</b> <%= reply.num_of_votes %>
           </div>
       <% end %>
 
-    <br>
-    <b># of votes:</b> <%= post.num_of_votes %>
+    <br />
+    <b><%= post.num_of_votes %> Votes</b>
      <% if session[:id] %>
       <%= form_tag(:action => :add_reply, :post_id => post, :user_id => session[:id]) do %>
         <%= text_area_tag(:text) %>
@@ -49,9 +47,3 @@
   </tr>
 <% end %>
 </table>
-
-<br />
-<% if session[:id] %>
-    <p><%= session[:username] %> : <%= link_to "Log Out", logout_path %></p>
-    <%= link_to 'New Post', new_post_path %>
-<% end %>
