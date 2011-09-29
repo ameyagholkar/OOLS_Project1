@@ -14,13 +14,13 @@ class SessionsController < ApplicationController
         session[:id] = check_user.id
         @result = "Success"
         #sign_in user
-        #redirect_to  '/signup' ## Add route here to the appropriate page which uses session variables.
+        redirect_to  '/liveQuestions' ## Add route here to the appropriate page which uses session variables.
     end
   end
 
   def logout
     reset_session
-    redirect_to signup_path
+    redirect_to '/liveQuestions'
   end
 
 end

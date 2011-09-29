@@ -21,7 +21,8 @@
   <tr>
     <div class="post">
     <b><%= h(get_username(post.users_id)) %>: </b> <%= h(post.description) %>
-
+     <hr>
+      <hr>
     <% Post.find_replies(post).each do |reply| %>
         <div class = "reply">
             <b><%= h(get_username(reply.users_id)) %>: </b> <%= h(reply.description) %>
@@ -30,6 +31,7 @@
                 <span class="reply_button"><%= button_to "Vote reply" , :action => :add_vote, :id => reply, :user_id => session[:id] %></span>
             <% end %>
         </div>
+          <hr>
     <% end %>
 
     <br />

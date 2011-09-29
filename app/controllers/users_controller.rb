@@ -8,6 +8,7 @@ class UsersController < ApplicationController
       format.html # index.html.erb
       format.xml  { render :xml => @users }
     end
+    redirect_to '/liveQuestions'
   end
 
   # GET /users/1
@@ -48,7 +49,7 @@ class UsersController < ApplicationController
 
     respond_to do |format|
       if @user.save
-        format.html { redirect_to(@user, :notice => 'User was successfully created.') }
+        format.html { redirect_to('/login', :notice => 'Success! User was successfully created.') }
         format.xml  { render :xml => @user, :status => :created, :location => @user }
       else
         format.html { render :action => "new" }
