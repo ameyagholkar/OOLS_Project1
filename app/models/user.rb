@@ -1,11 +1,12 @@
 require 'digest'
 class User < ActiveRecord::Base
-
+  #attr_accessible :username, :name, :email, :password
 
   validates_presence_of :username ,:password , :email ,:name
   validates_uniqueness_of :username
   validates_length_of :password, :within=> 4..15 ,:too_long => "password should contain less than 20 characters" ,:too_short => "password should contain more than 4 characters "
   validates_format_of :email,:with => /\b[A-Z0-9._%a-z-]+@(?:[A-Z0-9a-z-]+.)+[A-Za-z]{2,4}\z/
+
 
   #validates :password, :confirmation => true
   before_save :encryption
@@ -33,5 +34,10 @@ class User < ActiveRecord::Base
       else
         return nil
       end
+  end
+
+  def self.extract_username(id)
+    @user = self.find_by_id(id)
+    @user
   end
 end

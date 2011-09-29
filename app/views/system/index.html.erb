@@ -20,12 +20,12 @@
 <% @posts.each do |post| %>
   <tr>
     <div class="post">
-    <b><%= h(post.users_id) %>: </b> <%= h(post.description) %>
+    <b><%= h(get_username(post.users_id)) %>: </b> <%= h(post.description) %>
 
-      <% Post.find(:all, :conditions => {:parent => post} ).each do |reply| %>
+      <% Post.all(:conditions => {:parent => post}, :order => "num_of_votes DESC" ).each do |reply| %>
           <br>
           <div class = "reply">
-             <b><%= h(reply.users_id) %>: </b> <%= h(reply.description) %>
+             <b><%= h(get_username(reply.users_id)) %>: </b> <%= h(reply.description) %>
              <% if session[:id] %>
              <%= button_to "Vote reply" , :action => :add_vote, :id => reply, :user_id => session[:id] %>
              <% end %>

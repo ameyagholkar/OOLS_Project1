@@ -1,5 +1,5 @@
 class SessionsController < ApplicationController
-  def new
+  def login
     @title = "Login to LiveQuestionTool"
   end
 
@@ -8,7 +8,7 @@ class SessionsController < ApplicationController
     if check_user.nil?
       flash.now[:error] = "Invalid email/password combination."
       @title = "Sign in"
-      render 'new'
+      render 'login'
     else
         session[:username] = check_user.username
         session[:id] = check_user.id
@@ -18,7 +18,7 @@ class SessionsController < ApplicationController
     end
   end
 
-  def destroy
+  def logout
     reset_session
     redirect_to signup_path
   end

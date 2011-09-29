@@ -1,20 +1,19 @@
 LiveQuestionTool::Application.routes.draw do
 
   resources :votes
-
   resources :posts
-
   resources :users
   resources :system
-  resources :sessions , :only => [:new , :create, :destroy]
+  resources :sessions , :only => [:login , :create, :logout]
+  match "/profile" => "users#show"
   match "/liveQuestions" => "system#index"
   match "/system/add_vote" => "system#add_vote"
   match "/system/add_post" => "system#add_post"
   match "/system/add_reply" => "system#add_reply"
   #match '/profile' => 'users#show'
   match '/signup' => 'users#new'
-  match '/login'  => 'sessions#new'
-  match '/logout' => 'sessions#destroy'
+  match '/login'  => 'sessions#login'
+  match '/logout' => 'sessions#logout'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 
