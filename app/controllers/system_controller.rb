@@ -1,7 +1,6 @@
 class SystemController < ApplicationController
   def index
        @posts = Post.all_posts
-       @replies = Post.all_replies
   end
 
   def add_vote
@@ -15,7 +14,7 @@ class SystemController < ApplicationController
       vote.posts_id = params[:id]
       vote.users_id = params[:user_id]
       vote.save
-      redirect_to :action => 'index'
+      redirect_to :action => '/liveQuestions'
     end
 
   end
@@ -26,7 +25,7 @@ class SystemController < ApplicationController
     @p.description=@desc
     @p.users_id = params[:user_id]
     @p.save
-    redirect_to :action => 'index'
+    redirect_to :action => '/liveQuestions'
   end
 
   def add_reply
@@ -36,6 +35,6 @@ class SystemController < ApplicationController
     @p.users_id = params[:user_id]
     @p.parent = params[:post_id]
     @p.save
-    redirect_to :action => 'index'
+    redirect_to :action => '/liveQuestions'
   end
 end

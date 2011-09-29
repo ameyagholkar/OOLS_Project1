@@ -1,9 +1,10 @@
-body { background-color: #fff; color: #333; }
+body { background-color: #d3d3d3; color: #333; }
 
 body, p, ol, ul, td {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size:   13px;
   line-height: 18px;
+  word-wrap: break-word;
 }
 
 pre {
@@ -12,12 +13,24 @@ pre {
   font-size: 11px;
 }
 
-a { color: #000; }
-a:visited { color: #666; }
+a { color: blue; }
+a:visited { color: green; }
 a:hover { color: #fff; background-color:#000; }
+
+
+textarea {
+    width: 70%;
+    margin-left: 10px;
+}
 
 div.field, div.actions {
   margin-bottom: 10px;
+}
+
+#banner{
+    background-color: #ff0000;
+    text-align: center;
+    padding:  1px;
 }
 
 #notice {
@@ -55,16 +68,32 @@ div.field, div.actions {
   list-style: square;
 }
 
+.page_title{
+    color: white;
+    background-color: #ff0000;
+}
+.posts {
+}
+
 .post {
-    font-size: 20;
-    border-top-style: solid ;
-    border-top-color: gray;
-    border-bottom-style: solid ;
-    border-bottom-color: gray;
-    margin-bottom: 5px;
+    font-size: 15px;
+    width: 78%;
+    background-color: #a9a9a9;
+    border-top-style: solid;
+    border-top-color: lightgray;
+    border-bottom-style: solid;
+    border-bottom-color: black;
+    margin-bottom: 3px;
+    padding-left: 0.5%;
+    margin-right: 1%;
 }
 
 .reply {
-    font-size: 15;
-    margin-left: 10;
+    font-size: 12px;
+    margin-left: 10px;
+    margin-right: 10px;
+}
+
+.reply_button {
+
 }
