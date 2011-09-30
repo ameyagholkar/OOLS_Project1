@@ -72,12 +72,32 @@ class PostsController < ApplicationController
   # DELETE /posts/1
   # DELETE /posts/1.xml
   def destroy
+    reply = Post.find_all_by_parent(params[:id])
+    if !reply.nil?
+       reply.each do  |r|
+         delete_votes(r.id)
+         r.destroy
+       end
+    end
+
     @post = Post.find(params[:id])
+    delete_votes(@post.id)
     @post.destroy
 
+    logger.info "In the destroy method."
     respond_to do |format|
-      format.html { redirect_to(posts_url) }
+      format.html { redirect_to('/liveQuestions') }
       format.xml  { head :ok }
     end
   end
+
+  def delete_votes(post_id)
+    vote = Vote.find_all_by_posts_id(post_id)
+    if !vote.nil?
+        vote.each do |v|
+          v.destroy
+        end
+     end
+  end
+
 end

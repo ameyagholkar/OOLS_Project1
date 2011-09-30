@@ -12,6 +12,7 @@ class SessionsController < ApplicationController
     else
         session[:username] = check_user.username
         session[:id] = check_user.id
+        session[:isAdmin] = check_user.isAdmin
         @result = "Success"
         #sign_in user
         redirect_to  '/liveQuestions' ## Add route here to the appropriate page which uses session variables.

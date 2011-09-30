@@ -26,5 +26,12 @@
 </p>
 
 
-<%= link_to 'Edit', edit_user_path(@user) %> |
-<%= link_to 'Back', users_path %>
+<p>
+  <b>Number of Posts by this User:</b>
+  <%= @number_of_posts %>
+</p>
+
+ <% if session[:isAdmin] == 1  %>
+         <%= button_to "Delete User" , :action => :destroy, :controller => :users , :id => @user.id %>
+ <% end %>
+<%= link_to 'Back', '/liveQuestions' %>

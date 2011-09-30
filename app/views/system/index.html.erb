@@ -20,7 +20,11 @@
 <% @posts.each do |post| %>
   <tr>
     <div class="post">
+    <% if session[:isAdmin] == 1  %>
+    <p><b><%= link_to "#{get_username(post.users_id)}", :controller => :users, :action => :show, :id => post.users_id %>: </b> <%= h(post.description) %></p>
+     <% else %>
     <b><%= h(get_username(post.users_id)) %>: </b> <%= h(post.description) %>
+     <% end %>
      <hr>
       <hr>
     <% Post.find_replies(post).each do |reply| %>
@@ -45,6 +49,11 @@
     <b><%= post.num_of_votes %> Votes</b>
     <% if session[:id] %>
     <%= button_to "Vote Post" , :action => :add_vote, :id => post, :user_id => session[:id] %>
+
+    <% if session[:isAdmin] == 1  %>
+         <%= button_to "Delete Post" , :action => :destroy, :controller => :posts , :id => post %>
+    <% end %>
+
     <% end %>
    </div>
   </tr>

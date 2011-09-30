@@ -5,6 +5,8 @@ LiveQuestionTool::Application.routes.draw do
   resources :users
   resources :system
   resources :sessions , :only => [:login , :create, :logout]
+  match "/posts/:id" => "posts#destroy"
+  match "/users/:id" => "users#destroy"
   match "/profile" => "users#show"
   match "/liveQuestions" => "system#index"
   match "/system/add_vote" => "system#add_vote"

@@ -1,6 +1,6 @@
 require 'digest'
 class User < ActiveRecord::Base
-  #attr_accessible :username, :name, :email, :password
+  after_initialize :initialize_admin_flag
 
   validates_presence_of :username ,:password , :email ,:name
   validates_uniqueness_of :username
@@ -12,11 +12,11 @@ class User < ActiveRecord::Base
   before_save :encryption
 
   def encryption
-       self.password = hash_value(password)
+       self.password = hash_value(password+username)
   end
 
-  def hash_value(password)
-    Digest::SHA2.hexdigest(password)
+  def hash_value(code)
+    Digest::SHA2.hexdigest(code)
   end
 
   def has_password?(user_password)
@@ -29,7 +29,7 @@ class User < ActiveRecord::Base
         return nil
       end
 
-      if @user.has_password?(user_password)
+      if @user.has_password?(user_password+user_username)
         return @user
       else
         return nil
@@ -40,4 +40,11 @@ class User < ActiveRecord::Base
     @user = self.find_by_id(id)
     @user
   end
+
+  def initialize_admin_flag
+      if self.isAdmin.nil?
+        self.isAdmin = 0
+      end
+  end
+
 end
