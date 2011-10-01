@@ -15,14 +15,6 @@
     <%= submit_tag("Search") %>
 <% end %>
 <hr />
-<% if session[:id] %>
-    <%= form_tag(:action => :add_post, :user_id => session[:id]) do %>
-        <%= text_area_tag(:text, "Enter text for new post here.") %>
-        <%= submit_tag("New Post") %>
-    <% end %>
-<% end %>
-
-<hr />
 
 <table>
 

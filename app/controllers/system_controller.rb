@@ -49,4 +49,13 @@ class SystemController < ApplicationController
     @p.save
     redirect_to  '/liveQuestions'
   end
+
+  def search
+    if params[:search_by] == "1"
+        @posts = Post.post_search(params[:search])
+      else
+        @posts = Post.user_search(params[:search])
+    end
+    #redirect_to(:action => :index, :search_by => params[:search_by], :search => params[:search])
+  end
 end
