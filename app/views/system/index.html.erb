@@ -23,48 +23,4 @@
 <% end %>
 
 <hr />
-
-<table>
-
-<% @posts.each do |post| %>
-  <tr>
-    <div class="post">
-    <% if session[:isAdmin] == 1  %>
-    <p><b><%= link_to "#{get_username(post.users_id)}", :controller => :users, :action => :show, :id => post.users_id %>: </b> <%= h(post.description) %></p>
-     <% else %>
-    <b><%= h(get_username(post.users_id)) %>: </b> <%= h(post.description) %>
-     <% end %>
-     <hr>
-      <hr>
-    <% Post.find_replies(post).each do |reply| %>
-        <div class = "reply">
-            <b><%= h(get_username(reply.users_id)) %>: </b> <%= h(reply.description) %>
-            <b><%= reply.num_of_votes %> Votes</b>
-            <% if session[:id] %>
-                <span class="reply_button"><%= button_to "Vote reply" , :action => :add_vote, :id => reply, :user_id => session[:id] %></span>
-            <% end %>
-        </div>
-          <hr>
-    <% end %>
-
-    <br />
-    <% if session[:id] %>
-        <%= form_tag(:action => :add_reply, :post_id => post, :user_id => session[:id]) do %>
-            <%= text_area_tag(:text, "Enter reply to post here.") %>
-            <%= submit_tag("Add Reply") %>
-        <% end %>
-        <br />
-    <% end %>
-    <b><%= post.num_of_votes %> Votes</b>
-    <% if session[:id] %>
-        <%= button_to "Vote Post" , :action => :add_vote, :id => post, :user_id => session[:id] %>
-
-        <% if session[:isAdmin] == 1  %>
-            <%= button_to "Delete Post" , :action => :destroy, :controller => :posts , :id => post %>
-        <% end %>
-    <% end %>
-    Posted on <%= h(post.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%B %d, %Y %I:%M %p")) %>
-   </div>
-  </tr>
-<% end %>
-</table>
+<%= render :partial => "post_list", :locals => {:posts => @posts} %>

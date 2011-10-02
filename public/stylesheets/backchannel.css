@@ -1,6 +1,6 @@
 body { background-color: #d3d3d3; color: #333; }
 
-body, p, ol, ul, td {
+body, p, ol, ul {
   font-family: verdana, arial, helvetica, sans-serif;
   font-size:   13px;
   line-height: 18px;
@@ -109,4 +109,8 @@ div.field, div.actions {
 }
 
 .reply_button {
+}
+
+.reply td {
+    border-bottom: dashed gray 1px;
 }
