@@ -18,16 +18,16 @@
 <% end %>
 </div>
 <br />
-<div class="borderedBox">
-<% if session[:id] %>
 
+<% if session[:id] %>
+   <div class="borderedBox">
     <%= form_tag(:action => :add_post, :user_id => session[:id]) do %>
         <%= text_area_tag(:text, "Enter text for new post here.", :size => '100x5') %>
            <div style="padding-top: 10px"><%= submit_tag("New Post", {:class => 'addReply'}) %></div>
     <% end %>
+   </div>
 <% end %>
-</div>
-<hr />
+<br />
 <div class="siteBody"   >
 <%= render :partial => "post_list", :locals => {:posts => @posts} %>
 </div>

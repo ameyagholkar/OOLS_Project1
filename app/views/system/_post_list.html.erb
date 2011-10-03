@@ -2,12 +2,40 @@
 
 <% posts.each do |post| %>
 
-    <div class = "post">
+    <div class = "post" >
 
            <p class="postHead"><%= h(post.description) %></p>
-        <hr />
+        <div style="border: 1px solid silver;">
+        <table border="0">
+        <% if session[:isAdmin] == 1  %>
+            <td>Posted by <b><%= link_to "#{get_username(post.users_id)}", :controller => :users, :action => :show, :id => post.users_id %> </b> on <%= h(post.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%B %d, %Y %I:%M %p")) %></td>
+        <% else %>
+            <td>Posted by <b><%= h(get_username(post.users_id)) %> </b> on <%= h(post.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%B %d, %Y %I:%M %p")) %></td>
+        <% end %>
+            <% if session[:id] %>
+                <td style="padding-top: 20px"><%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]}, {:class => 'postButton', :title => 'Vote for this Post!'} %></td>
+
+                <% if session[:isAdmin] == 1  %>
+                    <td style="padding-top: 20px"><%= button_to "" , {:action => :destroy, :controller => :posts , :id => post} , {:class => 'deletePostButton' , :title => 'Delete this Post!'} %></td>
+                <% end %>
+            <% end %>
+         <td width="500" align="right">
+           <% if post.num_of_votes == 0 %>
+                <b>No users have voted for this post. </b>
+                <% elsif post.num_of_votes == 1 %>
+                <b><%= image_tag('/images/voted.jpg') %><%= post.num_of_votes %> user has voted for this post. </b>
+                <% else %>
+                <b><%= image_tag('/images/voted.jpg') %><%= post.num_of_votes %> users have voted for this post. </b>
+          <% end %>
+         </td>
+        </table>
+          </div>
+
         <table class = "replies" border="0" cellpadding="5" style="padding-left: 30px" >
         <tr class="tableHeader"><th colspan="3" align="left">Replies</th></tr>
+        <% if Post.find_replies(post).blank? %>
+             <tr class = "reply"><td>No replies to this post yet!</td></tr>
+        <% end %>
         <% Post.find_replies(post).each do |reply| %>
             <tr class = "reply">
                 <td colspan="3" style="word-break:break-all;"><b><%= h(get_username(reply.users_id)) %>  </b> says: <%= h(reply.description) %></td>
@@ -38,31 +66,7 @@
 
         <% end %>
         <br />
-        <div class="borderedBox">
-        <table border="0" cellpadding="5">
-        <% if session[:isAdmin] == 1  %>
-            <td>Posted by <b><%= link_to "#{get_username(post.users_id)}", :controller => :users, :action => :show, :id => post.users_id %> </b> on <%= h(post.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%B %d, %Y %I:%M %p")) %></td>
-        <% else %>
-            <td>Posted by <b><%= h(get_username(post.users_id)) %> </b> on <%= h(post.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%B %d, %Y %I:%M %p")) %></td>
-        <% end %>
-            <% if session[:id] %>
-                <td style="padding-top: 20px"><%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]}, {:class => 'postButton', :title => 'Vote for this Post!'} %></td>
 
-                <% if session[:isAdmin] == 1  %>
-                    <td style="padding-top: 20px"><%= button_to "" , {:action => :destroy, :controller => :posts , :id => post} , {:class => 'deletePostButton' , :title => 'Delete this Post!'} %></td>
-                <% end %>
-            <% end %>
-         <td width="500" align="right">
-           <% if post.num_of_votes == 0 %>
-                <b>No users have voted for this post. </b>
-                <% elsif post.num_of_votes == 1 %>
-                <b><%= image_tag('/images/voted.jpg') %><%= post.num_of_votes %> user has voted for this post. </b>
-                <% else %>
-                <b><%= image_tag('/images/voted.jpg') %><%= post.num_of_votes %> users have voted for this post. </b>
-          <% end %>
-         </td>
-        </table>
-          </div>
       <br />
    </div>
 <% end %>
