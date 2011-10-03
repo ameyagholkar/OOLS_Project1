@@ -7,7 +7,7 @@ class Post < ActiveRecord::Base
 
   def self.find_top_posts
     result = all(:conditions => {:parent => -1} )
-    result.sort {|a,b| vote_frequency(b) <=> vote_frequency(a)};
+    result.sort {|a,b| vote_frequency(b) <=> vote_frequency(a)}
   end
 
   def self.find_replies(p)
@@ -20,7 +20,7 @@ class Post < ActiveRecord::Base
 
   def self.post_search(text)
     result = all(:conditions => ['parent = -1 AND description LIKE ?', "%" + text + "%"])
-    result.sort {|a,b| vote_frequency(b) <=> vote_frequency(a)};
+    result.sort {|a,b| vote_frequency(b) <=> vote_frequency(a)}
   end
 
   def self.user_search(text)

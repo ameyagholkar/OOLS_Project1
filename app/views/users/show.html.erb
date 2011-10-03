@@ -1,13 +1,10 @@
+<br />
+<div class="borderedBox">
 <p id="notice"><%= notice %></p>
 
 <p>
   <b>Username:</b>
   <%= @user.username %>
-</p>
-
-<p>
-  <b>Password:</b>
-  <%= @user.password %>
 </p>
 
 <p>
@@ -21,8 +18,12 @@
 </p>
 
 <p>
-  <b>Isadmin:</b>
-  <%= @user.isAdmin %>
+  <b>Administrator Rights:</b>
+  <% if @user.isAdmin == 1 %>
+  Full Administrator Rights
+  <% else %>
+  No Administrator Rights
+  <% end %>
 </p>
 
 
@@ -34,4 +35,5 @@
  <% if session[:isAdmin] == 1  %>
          <%= button_to "Delete User" , :action => :destroy, :controller => :users , :id => @user.id %>
  <% end %>
-<%= link_to 'Back', '/liveQuestions' %>
+<%= link_to '<< Back', '/liveQuestions' %>
+</div>

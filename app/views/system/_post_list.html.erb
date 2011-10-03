@@ -3,41 +3,66 @@
 <% posts.each do |post| %>
 
     <div class = "post">
-        <% if session[:isAdmin] == 1  %>
-            <p><b><%= link_to "#{get_username(post.users_id)}", :controller => :users, :action => :show, :id => post.users_id %>: </b> <%= h(post.description) %></p>
-        <% else %>
-            <b><%= h(get_username(post.users_id)) %>: </b> <%= h(post.description) %>
-        <% end %>
+
+           <p class="postHead"><%= h(post.description) %></p>
         <hr />
-        <table class = "replies">
+        <table class = "replies" border="0" cellpadding="5" style="padding-left: 30px" >
+        <tr class="tableHeader"><th colspan="3" align="left">Replies</th></tr>
         <% Post.find_replies(post).each do |reply| %>
             <tr class = "reply">
-
-                <td><b><%= h(get_username(reply.users_id)) %>: </b> <%= h(reply.description) %></td>
+                <td colspan="3" style="word-break:break-all;"><b><%= h(get_username(reply.users_id)) %>  </b> says: <%= h(reply.description) %></td>
+            </tr>  <tr class = "replyControls">
                 <% if session[:id] %>
-                    <td><%= button_to "Vote reply" , :action => :add_vote, :id => reply, :user_id => session[:id], :class => "reply_button" %></td>
+                    <td><%= button_to "" , {:action => :add_vote, :id => reply, :user_id => session[:id]}, {:class => "postButton",:title => 'Vote for this Reply!'} %></td>
                 <% end %>
-                <td><b><%= reply.num_of_votes %> Votes</b></td>
-            </tr>
+                <td width=80% align="right">
+                <% if reply.num_of_votes == 0 %>
+                <b>No users have voted for this reply. </b>
+                <% elsif reply.num_of_votes == 1 %>
+                <b><%= image_tag('/images/voted.jpg') %><%= reply.num_of_votes %> user has voted for this reply. </b>
+                <% else %>
+                <b><%= image_tag('/images/voted.jpg') %><%= reply.num_of_votes %> users have voted for this reply. </b>
+                <% end %>
+                </td>
+             </tr>
             <% end %>
         </table>
+      <br />
         <% if session[:id] %>
+          <table border="0">
             <%= form_tag(:action => :add_reply, :post_id => post, :user_id => session[:id]) do %>
-                <%= text_area_tag(:text, "Enter reply to post here.") %>
-                <%= submit_tag("Add Reply") %>
+              <tr><td width="800" align="center"><%= text_area_tag(:text, "Enter reply to post here.") %></td>
+              <td><%= submit_tag("Add Reply", {:class => 'addReply'}) %></td></tr>
+           </table>
             <% end %>
-            <hr />
+
         <% end %>
-        <table>
-            <td><b><%= post.num_of_votes %> Votes</b> </td>
-            <td>Posted on <%= h(post.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%B %d, %Y %I:%M %p")) %></td>
+        <br />
+        <div class="borderedBox">
+        <table border="0" cellpadding="5">
+        <% if session[:isAdmin] == 1  %>
+            <td>Posted by <b><%= link_to "#{get_username(post.users_id)}", :controller => :users, :action => :show, :id => post.users_id %> </b> on <%= h(post.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%B %d, %Y %I:%M %p")) %></td>
+        <% else %>
+            <td>Posted by <b><%= h(get_username(post.users_id)) %> </b> on <%= h(post.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%B %d, %Y %I:%M %p")) %></td>
+        <% end %>
             <% if session[:id] %>
-                <td><%= button_to "Vote Post" , :action => :add_vote, :id => post, :user_id => session[:id] %></td>
+                <td style="padding-top: 20px"><%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]}, {:class => 'postButton', :title => 'Vote for this Post!'} %></td>
 
                 <% if session[:isAdmin] == 1  %>
-                    <td><%= button_to "Delete Post" , :action => :destroy, :controller => :posts , :id => post %></td>
+                    <td style="padding-top: 20px"><%= button_to "" , {:action => :destroy, :controller => :posts , :id => post} , {:class => 'deletePostButton' , :title => 'Delete this Post!'} %></td>
                 <% end %>
             <% end %>
+         <td width="500" align="right">
+           <% if post.num_of_votes == 0 %>
+                <b>No users have voted for this post. </b>
+                <% elsif post.num_of_votes == 1 %>
+                <b><%= image_tag('/images/voted.jpg') %><%= post.num_of_votes %> user has voted for this post. </b>
+                <% else %>
+                <b><%= image_tag('/images/voted.jpg') %><%= post.num_of_votes %> users have voted for this post. </b>
+          <% end %>
+         </td>
         </table>
+          </div>
+      <br />
    </div>
 <% end %>

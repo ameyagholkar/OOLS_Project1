@@ -21,10 +21,6 @@ class UsersController < ApplicationController
     elsif session[:id]
         @user = User.find(session[:id])
         stats = statistics(@user)
-      respond_to do |format|
-        format.html # show.html.erb
-        format.xml  { render :xml => @user }
-        end
     else
       flash[:error] = "Please Login and Try again!"
       redirect_to '/login'
@@ -35,11 +31,11 @@ class UsersController < ApplicationController
     else
        @null_message = stats
     end
-      respond_to do |format|
-      format.html # show.html.erb
-      format.xml  { render :xml => @user }
-    end
 
+     respond_to do |format|
+        format.html # show.html.erb
+        format.xml  { render :xml => @user }
+        end
 
   end
 

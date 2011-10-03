@@ -1,3 +1,10 @@
+<div class="mainTableHolder">
+<table border="0" cellpadding="50" class="mainTable" >
+<tr>
+<td width="300">Welcome to Live Questions! This tool is specialized for posting interesting and intriguing questions
+about technical stuff! Anything that you don't know, ask here! Anything you would like to share, post here!
+</td>
+<td style="padding-left: 600px">
 <%= form_for(@user) do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
@@ -12,26 +19,29 @@
   <% end %>
 
   <div class="field">
-    <%= f.label :username %><br />
+    <%= f.label :username %> <br />
     <%= f.text_field :username %>
   </div>
   <div class="field">
-    <%= f.label :password %><br />
+    <%= f.label :password %> <br />
     <%= f.password_field :password %>
   </div>
   <div class="field">
-    <%= f.label :name %><br />
+    <%= f.label :name %> <br />
     <%= f.text_field :name %>
   </div>
   <div class="field">
-    <%= f.label :email %><br />
+    <%= f.label :email %> <br />
     <%= f.text_field :email %>
   </div>
   <div class="field">
-        <%= f.label :isAdmin %><br />
+        <%= f.label :isAdmin %> <br />
         <%= f.text_field :isAdmin %>
   </div>
-  <div class="actions">
-    <%= f.submit %>
+  <div class="actions" style="padding-right: 150px">
+    <%= f.submit "Sign Up!" %>
   </div>
 <% end %>
+</td></tr>
+</table>
+</div>

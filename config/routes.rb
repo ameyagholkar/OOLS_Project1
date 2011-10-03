@@ -10,6 +10,7 @@ LiveQuestionTool::Application.routes.draw do
   match "/profile" => "users#show"
   match "/liveQuestions" => "system#index"
   match "/system/add_vote" => "system#add_vote"
+  match "/system/show" => "system#add_vote"
   match "/system/add_post" => "system#add_post"
   match "/system/add_reply" => "system#add_reply"
   match "/liveQuestions/search" => "system#search"

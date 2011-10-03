@@ -1,19 +1,22 @@
 <hr />
+<div class="loginHeader" align="right">
 <% if !session[:id] %>
-    <p><%= link_to "Login to Post", login_path %></p>
-<% end %>
-
-
+    <p><%= link_to "Login", login_path %> | <%= link_to "New User?", signup_path %></p>
 <!-- This if-else block prevents adding of posts if not signed in -->
-<% if session[:id] %>
-    <div class="logged_in_as">Logged in as <%= session[:username] %> <%= link_to "Log Out", logout_path %></div>
+<% else %>
+    <div class="logged_in_as">Logged in as <%= link_to session[:username], '/profile', :title => "Your Profile" %> |
+      <%= link_to "Log Out", logout_path, :title => "Log Out!" %></div>
     <hr />
 <% end %>
+
+</div>
+<div class="borderedBox">
 <% form_tag(:action => :search) do %>
-    <%= text_field_tag(:search, params[:search]) %>
+    Search the Site : <%= text_field_tag(:search, params[:search]) %>
     <%= select_tag(:search_by, options_for_select([['Post content', 1], ['Username', 2]])) %>
-    <%= submit_tag("Search") %>
+    <%= submit_tag("Search", {:class => 'addReply'}) %>
 <% end %>
+</div>
 <hr />
 
 <%= render :partial => "post_list", :locals => {:posts => @posts} %>
