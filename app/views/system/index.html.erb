@@ -1,33 +1,23 @@
-<hr />
-<div class="loginHeader" align="right">
-<% if !session[:id] %>
-    <p><%= link_to "Login", login_path %> | <%= link_to "New User?", signup_path %></p>
-<!-- This if-else block prevents adding of posts if not signed in -->
-<% else %>
-    <div class="logged_in_as">Logged in as <%= link_to session[:username], '/profile', :title => "Your Profile" %> |
-      <%= link_to "Log Out", logout_path, :title => "Log Out!" %></div>
-    <hr />
-<% end %>
-
-</div>
 <div class="borderedBox">
 <% form_tag(:action => :search) do %>
     Search the Site : <%= text_field_tag(:search, params[:search]) %>
     <%= select_tag(:search_by, options_for_select([['Post content', 1], ['Username', 2]])) %>
-    <%= submit_tag("Search", {:class => 'addReply'}) %>
+    <%= submit_tag("Search") %>
 <% end %>
 </div>
 <br />
 
 <% if session[:id] %>
    <div class="borderedBox">
-    <%= form_tag(:action => :add_post, :user_id => session[:id]) do %>
-        <%= text_area_tag(:text, "Enter text for new post here.", :size => '100x5') %>
-           <div style="padding-top: 10px"><%= submit_tag("New Post", {:class => 'addReply'}) %></div>
-    <% end %>
+     <table>
+        <%= form_tag(:action => :add_post, :user_id => session[:id]) do %>
+            <td><%= text_area_tag(:text, "Enter text for new post here.", :size => '100x5') %></td>
+            <td><%= submit_tag("New Post", {:class => 'addReply'}) %></td>
+        <% end %>
+     </table>
    </div>
 <% end %>
 <br />
 <div class="siteBody"   >
-<%= render :partial => "post_list", :locals => {:posts => @posts} %>
+    <%= render :partial => "post_list", :locals => {:posts => @posts} %>
 </div>
