@@ -34,13 +34,13 @@ a:visited { color: green; }
 a:hover { color: #fff; background-color:#000; }
 
 tr.tableHeader th {
-  background-color: lightblue;
+  background-color: #adcef0;
   border-bottom: 2px solid #4682b4;
   border-radius: 2px;
 }
 
-.post textarea {
-    width: 80%;
+textarea {
+    width: 95%;
     margin-left: 10px;
 }
 
@@ -113,16 +113,9 @@ div.field, div.actions {
 .post {
     font-size: 15px;
     width: 99%;
-    border: 1px;
-    background-color: #f5f5f5;
-    border-top-style: solid;
-    border-top-color: gray;
-    border-left-style: solid;
-    border-left-color: gray;
-    border-right-style: solid;
-    border-right-color: gray;
-    border-bottom-style: solid;
-    border-bottom-color: black;
+    border: solid gray 1px;
+    background-color: #d1d3f0;
+    border-bottom: solid black 2px;
     border-radius: 5px;
     margin-bottom: 3px;
     padding-left: 0.5%;
@@ -142,6 +135,10 @@ div.field, div.actions {
 }
 
 table.replies {
+    width: 98%;
+}
+
+table.newPost {
     width: 98%;
 }
 
@@ -179,7 +176,7 @@ table.replies {
 }
 
 .borderedBox {
-    border: 1px solid silver; padding-top: 10px; padding-left: 20px; padding-right: 10px;
+    border: 1px solid silver; padding-left: 20px; padding-right: 10px;
 }
 
 .replyControls td {

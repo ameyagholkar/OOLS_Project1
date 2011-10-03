@@ -1,0 +1,28 @@
+<table class = "replies" border="0" cellpadding="5" style="padding-left: 30px" >
+    <tr class="tableHeader"><th colspan="3" align="left">Replies</th></tr>
+    <% if Post.find_replies(post).blank? %>
+        <tr class = "reply"><td>No replies to this post yet!</td></tr>
+    <% end %>
+    <% Post.find_replies(post).each do |reply| %>
+        <tr class = "reply">
+            <td colspan="3" style="word-break:break-all;"><b><%= h(get_username(reply.users_id)) %>  </b> says: <%= h(reply.description) %></td>
+        </tr>
+        <tr class = "replyControls">
+            <% if session[:id] %>
+                <td><%= button_to "" , {:action => :add_vote, :id => reply, :user_id => session[:id]}, {:class => "postButton",:title => 'Vote for this Reply!'} %></td>
+                <% if session[:isAdmin] == 1  %>
+                    <td><%= button_to "" , {:action => :destroy, :controller => :posts , :id => reply} , {:class => 'deletePostButton' , :title => 'Delete this reply!'} %></td>
+                <% end %>
+            <% end %>
+            <td width=98% align="right">
+                <% if reply.num_of_votes == 0 %>
+                    <b>No users have voted for this reply. </b>
+                <% elsif reply.num_of_votes == 1 %>
+                    <b><%= image_tag('/images/voted.png') %><%= reply.num_of_votes %> user has voted for this reply. </b>
+                <% else %>
+                    <b><%= image_tag('/images/voted.png') %><%= reply.num_of_votes %> users have voted for this reply. </b>
+                <% end %>
+            </td>
+        </tr>
+    <% end %>
+</table>

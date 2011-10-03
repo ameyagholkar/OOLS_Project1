@@ -2,6 +2,10 @@
   <head>
     <title>Live Questions</title>
     <%= stylesheet_link_tag "backchannel" , :media => "all" %>
+    <%= javascript_include_tag :defaults %>
+    <%=javascript_include_tag  "http://ajax.googleapis.com/ajax/libs/jquery/1.4.2/jquery.min.js" %>
+    <%=javascript_include_tag  "http://ajax.googleapis.com/ajax/libs/jqueryui/1.7.2/jquery-ui.min.js"%>
+    <%=javascript_include_tag "jquery-rails.js" %>
   </head>
   <body>
     <div id="banner" >
@@ -14,10 +18,10 @@
             <div class="logged_in_as">Logged in as <%= link_to session[:username], '/profile', :title => "Your Profile" %> |
             <%= link_to "Log Out", logout_path, :title => "Log Out!" %></div>
         <% end %>
-        </div>
         <% flash.each do |key, value| %>
           <div class="flash <%= key %>"><%= value %></div>
         <% end %>
+        </div>
     </div>
     <div id="main" >
       <%= yield %>

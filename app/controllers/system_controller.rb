@@ -1,4 +1,6 @@
 class SystemController < ApplicationController
+  respond_to :js
+
   def index
        @posts = Post.find_top_posts
   end
@@ -20,8 +22,6 @@ class SystemController < ApplicationController
         vote.posts_id = params[:id]
         vote.users_id = params[:user_id]
         vote.save
-        redirect_to  '/liveQuestions'
-
       elsif flag !=1
         flash[:error] = "You cannot vote more than once"
         redirect_to  '/liveQuestions'

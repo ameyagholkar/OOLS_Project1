@@ -5,19 +5,22 @@
     <%= submit_tag("Search") %>
 <% end %>
 </div>
+
 <br />
 
 <% if session[:id] %>
-   <div class="borderedBox">
-     <table>
+    <div class="borderedBox">
+     <table class = "newPost">
+        <tr>
         <%= form_tag(:action => :add_post, :user_id => session[:id]) do %>
-            <td><%= text_area_tag(:text, "Enter text for new post here.", :size => '100x5') %></td>
+            <td><%= text_area_tag(:text, "Enter text for new post here.") %></td>
             <td><%= submit_tag("New Post", {:class => 'addReply'}) %></td>
         <% end %>
+        </tr>
      </table>
-   </div>
+    </div>
 <% end %>
 <br />
-<div class="siteBody"   >
+<div id="siteBody">
     <%= render :partial => "post_list", :locals => {:posts => @posts} %>
 </div>

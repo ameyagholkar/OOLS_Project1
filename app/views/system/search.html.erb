@@ -2,7 +2,7 @@
 <% form_tag(:action => :search) do %>
     Search the Site : <%= text_field_tag(:search, params[:search]) %>
     <%= select_tag(:search_by, options_for_select([['Post content', 1], ['Username', 2]])) %>
-    <%= submit_tag("Search", {:class => 'addReply'}) %>
+    <%= submit_tag("Search") %>
 <% end %>
 </div>
 <hr />

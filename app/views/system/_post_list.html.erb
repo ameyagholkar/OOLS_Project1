@@ -1,8 +1,6 @@
-
-
 <% posts.each do |post| %>
 
-    <div class = "post" >
+    <div class = "post" id="<%="post#{post.id}"%>" >
 
            <p class="postHead"><%= h(post.description) %></p>
         <div style="border: 1px solid silver;">
@@ -13,48 +11,28 @@
             <td>Posted by <b><%= h(get_username(post.users_id)) %> </b> on <%= h(post.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%B %d, %Y %I:%M %p")) %></td>
         <% end %>
             <% if session[:id] %>
-                <td style="padding-top: 20px"><%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]}, {:class => 'postButton', :title => 'Vote for this Post!'} %></td>
+                <td style="padding-top: 20px">
+                    <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :title => 'Vote for this Post!' ,:method => 'post' %>
+                </td>
 
                 <% if session[:isAdmin] == 1  %>
-                    <td style="padding-top: 20px"><%= button_to "" , {:action => :destroy, :controller => :posts , :id => post} , {:class => 'deletePostButton' , :title => 'Delete this Post!'} %></td>
+                    <td style="padding-top: 20px"><%= button_to "" , {:action => :destroy, :controller => :posts , :id => post} , :class => 'deletePostButton' , :title => 'Delete this Post!' %></td>
                 <% end %>
             <% end %>
          <td width="500" align="right">
            <% if post.num_of_votes == 0 %>
                 <b>No users have voted for this post. </b>
                 <% elsif post.num_of_votes == 1 %>
-                <b><%= image_tag('/images/voted.jpg') %><%= post.num_of_votes %> user has voted for this post. </b>
+                <b><%= image_tag('/images/voted.png') %><%= post.num_of_votes %> user has voted for this post. </b>
                 <% else %>
-                <b><%= image_tag('/images/voted.jpg') %><%= post.num_of_votes %> users have voted for this post. </b>
+                <b><%= image_tag('/images/voted.png') %><%= post.num_of_votes %> users have voted for this post. </b>
           <% end %>
          </td>
         </table>
           </div>
-
-        <table class = "replies" border="0" cellpadding="5" style="padding-left: 30px" >
-        <tr class="tableHeader"><th colspan="3" align="left">Replies</th></tr>
-        <% if Post.find_replies(post).blank? %>
-             <tr class = "reply"><td>No replies to this post yet!</td></tr>
-        <% end %>
-        <% Post.find_replies(post).each do |reply| %>
-            <tr class = "reply">
-                <td colspan="3" style="word-break:break-all;"><b><%= h(get_username(reply.users_id)) %>  </b> says: <%= h(reply.description) %></td>
-            </tr>  <tr class = "replyControls">
-                <% if session[:id] %>
-                    <td><%= button_to "" , {:action => :add_vote, :id => reply, :user_id => session[:id]}, {:class => "postButton",:title => 'Vote for this Reply!'} %></td>
-                <% end %>
-                <td width=80% align="right">
-                <% if reply.num_of_votes == 0 %>
-                <b>No users have voted for this reply. </b>
-                <% elsif reply.num_of_votes == 1 %>
-                <b><%= image_tag('/images/voted.jpg') %><%= reply.num_of_votes %> user has voted for this reply. </b>
-                <% else %>
-                <b><%= image_tag('/images/voted.jpg') %><%= reply.num_of_votes %> users have voted for this reply. </b>
-                <% end %>
-                </td>
-             </tr>
-            <% end %>
-        </table>
+      <div id=<%="reply#{post.id}"%>>
+        <%= render :partial => "reply_list", :locals => {:post => post} %>
+      </div>
       <br />
         <% if session[:id] %>
           <table border="0">
