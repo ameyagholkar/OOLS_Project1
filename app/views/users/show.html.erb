@@ -1,4 +1,5 @@
 <br />
+<% if session[:id] %>
 <h1>Details for User <%= @user.name %></h1>
 <div class="borderedBox">
 <p id="notice"><%= notice %></p>
@@ -47,5 +48,12 @@
  <% if session[:isAdmin] == 1 and Integer(session[:id]) != Integer(@user.id) %>
          <%= button_to "Delete User" , :action => :destroy, :controller => :users , :id => @user.id %>
  <% end %>
-<%= link_to ' Home ', '/liveQuestions' %> | <%= link_to ' User Listing ', '/users' %>
+<%= link_to ' Home ', '/liveQuestions' %>
+<% if session[:isAdmin] == 1%>
+  | <%= link_to ' User Listing ', '/users' %>
+<% end %>
 </div>
+<% else %>
+    <h2>You are not supposed to be here!</h2> <br />
+    | <%= link_to ' Home ', '/liveQuestions' %> |
+<% end %>

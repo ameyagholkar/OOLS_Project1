@@ -32,10 +32,10 @@ class UsersController < ApplicationController
        @null_message = stats
     end
 
-     respond_to do |format|
-        format.html # show.html.erb
-        format.xml  { render :xml => @user }
-        end
+    # respond_to do |format|
+     #   format.html # show.html.erb
+      #  format.xml  { render :xml => @user }
+      #  end
 
   end
 

@@ -1,3 +1,4 @@
+<% if session[:id] %>
 <h1>New Administrator</h1>
 <div class="borderedBox">
 <%= form_for(@user, :url => '/admin') do |f| %>
@@ -41,3 +42,6 @@
   </div>
 <% end %>
 </div>
+<% else %>
+    <h1>You might want to go here -> <%= link_to ' Home ', '/liveQuestions' %></h1>
+<% end %>

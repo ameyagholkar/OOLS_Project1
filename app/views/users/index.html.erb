@@ -1,3 +1,4 @@
+<% if session[:id] %>
 <h1>LiveQuestion's User List</h1>
 <div class="borderedBox">
 <table>
@@ -23,7 +24,9 @@
   </tr>
 <% end %>
 </table>
-
+<% else %>
+    <h2>You are not supposed to be here!</h2>
+<% end %>
 </div>
 | <%= link_to ' Back to Home', '/liveQuestions' %> |
 <br />
