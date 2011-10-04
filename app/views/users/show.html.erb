@@ -33,6 +33,17 @@
   <%= @number_of_posts %>
 </p>
 
+<% if session[:isAdmin] == 1 %>
+<p>
+  <b> Total Number of Votes for the user's Posts:</b>
+  <%= get_number_of_votes(@user) %>
+</p>
+
+ <p>
+  <b>Freq:</b>
+  <%= get_posting_frequency(@user) %>
+</p>
+<% end %>
  <% if session[:isAdmin] == 1 and Integer(session[:id]) != Integer(@user.id) %>
          <%= button_to "Delete User" , :action => :destroy, :controller => :users , :id => @user.id %>
  <% end %>
