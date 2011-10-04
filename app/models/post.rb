@@ -4,8 +4,6 @@ class Post < ActiveRecord::Base
   belongs_to :user   , :foreign_key =>  "users_id "
 
   validates_presence_of :description
-  cattr_reader :per_page
-  @@per_page = 5
 
   def self.find_top_posts
     result = all(:conditions => {:parent => -1} )
