@@ -12,15 +12,9 @@ class AdminControllerTest < ActionController::TestCase
   end
 
   test "should add user" do
-    #user = User.new
-    #user.name = "test dude"
-    #user.username = "userman"
-    #user.isAdmin = 0
-    #user.password = "password"
-    #user.email = "testemail@email.com"
-    #assert_difference('User.count') do
-    #  post :create, :post => { :user => user}
-    #end
+    assert_difference('User.count') do
+      post :create, :user => {:name => "test", :username => "shouldadduser", :password => "password", :email => "test@email.com", :isAdmin => 0}
+    end
   end
 
 end
