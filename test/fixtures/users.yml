@@ -1,7 +1,17 @@
 # Read about fixtures at http://ar.rubyonrails.org/classes/Fixtures.html
 
 one:
-  name: MyString
+  username: user1
+  name: Steve
+  password: blah
+  email: steve@email.com
+  isAdmin: 0
+  id: 1
 
 two:
-  name: MyString
+  username: user2
+  name: Bob
+  email: bob@email.com
+  password: blah
+  isAdmin: 0
+  id: 2
