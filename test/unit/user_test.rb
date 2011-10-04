@@ -24,7 +24,7 @@ class UserTest < ActiveSupport::TestCase
     user.name = "test"
     user.username = "test"
     user.password = "testing"
-    user.isAdmin == 0
+    user.isAdmin = 0
     user.email = "testemailbad.com"
     assert_false user.valid?
     user.email = "testemail@bad.com"
@@ -36,7 +36,7 @@ class UserTest < ActiveSupport::TestCase
     user.id = 1
     user.name = "test"
     user.username = "test"
-    user.isAdmin == 0
+    user.isAdmin = 0
     user.password = "te"
     user.email = "testemail@bad.com"
     assert_false user.valid?
@@ -49,7 +49,7 @@ class UserTest < ActiveSupport::TestCase
     user.id = 1
     user.name = "test"
     user.username = "user1"
-    user.isAdmin == 0
+    user.isAdmin = 0
     user.password = "testing"
     user.email = "testemail@bad.com"
     assert_false user.save
@@ -59,7 +59,7 @@ class UserTest < ActiveSupport::TestCase
     user = User.new
     user.name = "test"
     user.username = "user3"
-    user.isAdmin == 0
+    user.isAdmin = 0
     user.password = "password"
     user.email = "testemail@bad.com"
     user.save
