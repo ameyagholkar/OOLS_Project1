@@ -11,24 +11,20 @@ module SystemHelper
  def check_more_vote(user_id,post_id)
 
     @vote = Vote.find_by_posts_id_and_users_id(post_id,user_id)
-    if @vote.nil? == false
-      return true
+    if !@vote.blank?
+     true
     end
+ end
 
-  end
-
-  def check_your_post(user_id,post)
-
-    @post = Post.find_by_users_id(user_id)
-
-    if @post.nil? == false
-    if @post.id == post
-      return true
+  def check_your_post(user_id,post_id)
+    @post = Post.find_all_by_users_id(user_id)
+    if !@post.blank?
+      @post.each do |p|
+      if p.id == post_id
+        return true
+      end
     end
-    else
-      return false
-     end
   end
-
+ end
 
 end

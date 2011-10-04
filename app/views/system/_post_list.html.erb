@@ -17,20 +17,21 @@
                 </td>   -->
           <%# end %>
          <!-- Disabling the Vote Button -->
-            <% if session[:id] && check_more_vote(session[:id],post.id)!=true && check_your_post(session[:id],post.id)!=true %>
+          <% if session[:id] %>
+            <% if check_your_post(session[:id],post.id)==true %>
+                <td style="padding-top: 20px">
+                    <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :disabled => true, :title => 'Its your own Post!' ,:method => 'post' %>
+                </td>
+            <% elsif check_more_vote(session[:id],post.id) == true %>
+                 <td style="padding-top: 20px">
+                    <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :disabled => true, :title => 'You have already voted!' ,:method => 'post' %>
+                </td>
+            <% else %>
                 <td style="padding-top: 20px">
                     <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :title => 'Vote for this Post!' ,:method => 'post' %>
                 </td>
-            <% elsif session[:id] && check_more_vote(session[:id],post.id) == true %>
-                <td style="padding-top: 20px">
-                    <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :disabled => true, :title => 'Oh! You have already Voted!' ,:method => 'post' %>
-                </td>
-            <% elsif session[:id] && check_your_post(session[:id],post.id)==true %>
-                 <td style="padding-top: 20px">
-                    <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :disabled => true, :title => 'Its your own Post!' ,:method => 'post' %>
-                </td>
             <% end %>
-
+          <% end %>
 
 
 
