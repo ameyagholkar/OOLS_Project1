@@ -1,8 +1,6 @@
 source 'http://rubygems.org'
 
 gem 'rails', '3.0.9'
-gem 'will_paginate', "~> 3.0.pre2"
-
 # Bundle edge Rails instead:
 # gem 'rails', :git => 'git://github.com/rails/rails.git'
 
@@ -29,5 +27,8 @@ gem 'sqlite3'
 # and rake tasks are available in development mode:
  group :development, :test do
    #gem 'webrat'
-   gem "test-unit"
+   gem 'memory_test_fix'
+   gem 'capybara'
+   gem 'turn', :require => false
+   gem 'test-unit'
  end
