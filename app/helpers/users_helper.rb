@@ -2,7 +2,7 @@ module UsersHelper
 
   def get_number_of_votes(user)
     @posts = Post.find_all_by_users_id(user)
-    if @posts.nil?
+    if @posts.count == 0
       "No Posts Found!"
     else
       num_of_votes = 0
