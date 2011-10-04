@@ -1,5 +1,7 @@
 LiveQuestionTool::Application.routes.draw do
 
+  get "admin/newadmin"
+
   resources :votes
   resources :posts
   resources :users
@@ -18,6 +20,8 @@ LiveQuestionTool::Application.routes.draw do
   match '/signup' => 'users#new'
   match '/login'  => 'sessions#login'
   match '/logout' => 'sessions#logout'
+  match '/newAdmin' => 'admin#new'
+  match '/admin' => 'admin#create'
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

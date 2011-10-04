@@ -1,11 +1,6 @@
-<div class="mainTableHolder">
-<table border="0" cellpadding="50" class="mainTable" >
-<tr>
-<td width="300">Welcome to Live Questions! This tool is specialized for posting interesting and intriguing questions
-about technical stuff! Anything that you don't know, ask here! Anything you would like to share, post here!
-</td>
-<td style="padding-left: 600px">
-<%= form_for(@user) do |f| %>
+<h1>New Administrator</h1>
+<div class="borderedBox">
+<%= form_for(@user, :url => '/admin') do |f| %>
   <% if @user.errors.any? %>
     <div id="error_explanation">
       <h2><%= pluralize(@user.errors.count, "error") %> prohibited this user from being saved:</h2>
@@ -34,10 +29,15 @@ about technical stuff! Anything that you don't know, ask here! Anything you woul
     <%= f.label :email %> <br />
     <%= f.text_field :email %>
   </div>
+  <div class="field">
+  <label for="user_isAdmin">Is this User an Admin? </label>
+  <select id="user_isAdmin" name="user[isAdmin]">
+     <option value='1'>true</option>
+     <option value='0'>false</option>
+  </select>
+  </div>
   <div class="actions" style="padding-right: 150px">
     <%= f.submit "Sign Up!" %>
   </div>
 <% end %>
-</td></tr>
-</table>
 </div>

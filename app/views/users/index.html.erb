@@ -1,31 +1,30 @@
-<h1>Listing users</h1>
-
+<h1>LiveQuestion's User List</h1>
+<div class="borderedBox">
 <table>
   <tr>
     <th>Username</th>
-    <th>Password</th>
     <th>Name</th>
     <th>Email</th>
-    <th>Isadmin</th>
-    <th></th>
-    <th></th>
+    <th>Is this user an Admin?</th>
     <th></th>
   </tr>
 
 <% @users.each do |user| %>
-  <tr>
+  <tr align="center">
     <td><%= user.username %></td>
-    <td><%= user.password %></td>
     <td><%= user.name %></td>
     <td><%= user.email %></td>
-    <td><%= user.isAdmin %></td>
-    <td><%= link_to 'Show', user %></td>
-    <td><%= link_to 'Edit', edit_user_path(user) %></td>
-    <td><%= link_to 'Destroy', user, :confirm => 'Are you sure?', :method => :delete %></td>
+    <% if user.isAdmin == 1 %>
+    <td>Yes</td>
+    <% else %>
+    <td>No</td>
+    <% end %>
+    <td><%= link_to 'See Details', user %></td>
   </tr>
 <% end %>
 </table>
 
+</div>
+| <%= link_to ' Back to Home', '/liveQuestions' %> |
 <br />
 
-<%= link_to 'New User', new_user_path %>

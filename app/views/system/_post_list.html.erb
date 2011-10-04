@@ -10,11 +10,31 @@
         <% else %>
             <td>Posted by <b><%= h(get_username(post.users_id)) %> </b> on <%= h(post.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%B %d, %Y %I:%M %p")) %></td>
         <% end %>
-            <% if session[:id] %>
+
+          <%# if session[:id] %>
+       <!--     <td style="padding-top: 20px">
+                    <%#= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :title => 'Vote for this Post!' ,:method => 'post' %>
+                </td>   -->
+          <%# end %>
+         <!-- Disabling the Vote Button -->
+            <% if session[:id] && check_more_vote(session[:id],post.id)!=true && check_your_post(session[:id],post.id)!=true %>
                 <td style="padding-top: 20px">
                     <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :title => 'Vote for this Post!' ,:method => 'post' %>
                 </td>
+            <% elsif session[:id] && check_more_vote(session[:id],post.id) == true %>
+                <td style="padding-top: 20px">
+                    <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :disabled => true, :title => 'Oh! You have already Voted!' ,:method => 'post' %>
+                </td>
+            <% elsif session[:id] && check_your_post(session[:id],post.id)==true %>
+                 <td style="padding-top: 20px">
+                    <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :disabled => true, :title => 'Its your own Post!' ,:method => 'post' %>
+                </td>
+            <% end %>
 
+
+
+
+            <% if session[:id] %>
                 <% if session[:isAdmin] == 1  %>
                     <td style="padding-top: 20px"><%= button_to "" , {:action => :destroy, :controller => :posts , :id => post} , :class => 'deletePostButton' , :title => 'Delete this Post!' %></td>
                 <% end %>
