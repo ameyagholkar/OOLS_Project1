@@ -43,7 +43,7 @@ class LoginTest < ActionDispatch::IntegrationTest
     click_button("Sign in")
     assert page.has_content?("Logged in as")
     assert page.has_content?("admin")
-    assert page.has_content?("Users List")
-    assert page.has_content?("Create Admin")
+    assert page.has_link?("Users List")
+    assert page.has_link?("Create Admin")
   end
 end
