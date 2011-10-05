@@ -8,8 +8,17 @@
             <td colspan="3" style="word-break:break-all;"><b><%= h(get_username(reply.users_id)) %>  </b> says: <%= h(reply.description) %></td>
         </tr>
         <tr class = "replyControls">
+          <% if session[:id] %>
+            <% if check_your_post(session[:id],reply.id)==true %>
+            <td><%= button_to "" , {:action => :add_vote, :id => reply, :user_id => session[:id]}, {:class => "postButton",:title => 'Its your own reply!', :disabled => true} %></td>
+            <% elsif check_more_vote(session[:id],reply.id) == true %>
+            <td><%= button_to "" , {:action => :add_vote, :id => reply, :user_id => session[:id]}, {:class => "postButton",:title => 'You have already voted!!', :disabled => true} %></td>
+            <% else %>
+            <td><%= button_to "" , {:action => :add_vote, :id => reply, :user_id => session[:id]}, {:class => "postButton",:title => 'Vote for this Reply!'} %></td>
+            <% end %>
+          <% end %>
+
             <% if session[:id] %>
-                <td><%= button_to "" , {:action => :add_vote, :id => reply, :user_id => session[:id]}, {:class => "postButton",:title => 'Vote for this Reply!'} %></td>
                 <% if session[:isAdmin] == 1  %>
                     <td><%= button_to "" , {:action => :destroy, :controller => :posts , :id => reply} , {:class => 'deletePostButton' , :title => 'Delete this reply!'} %></td>
                 <% end %>

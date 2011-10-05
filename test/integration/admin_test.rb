@@ -38,8 +38,41 @@ class AdminTest < ActionDispatch::IntegrationTest
     click_on("user1")
     assert page.has_content?("Username: user1")
     assert page.has_button?("Delete User")
-
   end
 
+  test "login as admin, delete user and check if he doesn't exist'" do
+    click_link("Login")
+    fill_in("session_username", :with => "admin")
+    fill_in("session_password", :with => "password")
+    click_button("Sign in")
+    assert page.has_content?("Logged in as")
+    assert page.has_content?("admin")
+    assert page.has_content?("Users List")
+    assert page.has_content?("Create Admin")
+    assert page.has_content?("user1")
+    click_on("user1")
+    assert page.has_content?("Username: user1")
+    assert page.has_button?("Delete User")
+    click_button("Delete User")
+    assert_false page.has_content?("user1")
+  end
+
+  test "creation of new admin" do
+    click_link("Login")
+    fill_in("session_username", :with => "admin")
+    fill_in("session_password", :with => "password")
+    click_button("Sign in")
+    assert page.has_content?("Logged in as")
+    assert page.has_content?("admin")
+    click_on("Create Admin")
+    fill_in("user_username", :with => "admin2")
+    fill_in("user_password", :with => "password")
+    fill_in("user_name", :with => "admin")
+    fill_in("user_email", :with => "admin@admin.com")
+    select("true", :from => "user_isAdmin")
+    click_on("Create Admin!")
+    click_on("Users List")
+    assert page.has_content?("admin2")
+  end
 
 end
