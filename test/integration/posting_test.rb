@@ -35,12 +35,12 @@ class PostingTest < ActionDispatch::IntegrationTest
     fill_in("session_username", :with => "newUser")
     fill_in("session_password", :with => "password")
     click_button("Sign in")
-    fill_in("text",:with => "test post text")
+    find(".newPost").fill_in("text",:with => "test post text")
     click_button("New Post")
     assert page.has_content?("test post text")
     assert page.has_content?("No users have voted for this post.")
     assert page.has_content?("No replies to this post yet!")
-    assert page.has_content?("Enter text for new post here.")
+    assert find(".newPost").has_content?("Enter text for new post here.")
   end
 
   test "post as admin" do
@@ -48,11 +48,11 @@ class PostingTest < ActionDispatch::IntegrationTest
     fill_in("session_username", :with => "admin")
     fill_in("session_password", :with => "password")
     click_button("Sign in")
-    fill_in("text",:with => "test post text")
+    find(".newPost").fill_in("text",:with => "test post text")
     click_button("New Post")
     assert page.has_content?("test post text")
     assert page.has_content?("No users have voted for this post.")
     assert page.has_content?("No replies to this post yet!")
-    assert page.has_content?("Enter text for new post here.")
+    assert find(".newPost")..has_content?("Enter text for new post here.")
   end
 end
