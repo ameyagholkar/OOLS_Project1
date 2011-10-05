@@ -40,10 +40,10 @@ class PostsControllerTest < ActionController::TestCase
   end
 
   test "should destroy post" do
-    assert_difference('Post.count', -1) do
-      delete :destroy, :id => @post.to_param
+    assert_difference('Post.count', -3) do
+      delete :destroy, :id => 1
     end
 
-    assert_redirected_to posts_path
+    assert_redirected_to '/liveQuestions'
   end
 end
