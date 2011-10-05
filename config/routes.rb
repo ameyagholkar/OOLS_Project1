@@ -22,6 +22,7 @@ LiveQuestionTool::Application.routes.draw do
   match '/logout' => 'sessions#logout'
   match '/newAdmin' => 'admin#new'
   match '/admin' => 'admin#create'
+
   # The priority is based upon order of creation:
   # first created -> highest priority.
 

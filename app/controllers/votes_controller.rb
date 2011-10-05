@@ -2,12 +2,7 @@ class VotesController < ApplicationController
   # GET /votes
   # GET /votes.xml
   def index
-    @votes = Vote.all
-
-    respond_to do |format|
-      format.html # index.html.erb
-      format.xml  { render :xml => @votes }
-    end
+ redirect_to '/liveQuestions'
   end
 
   # GET /votes/1
