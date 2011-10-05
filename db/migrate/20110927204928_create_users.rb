@@ -9,6 +9,13 @@ class CreateUsers < ActiveRecord::Migration
 
       t.timestamps
     end
+    user = User.new
+    user.name = "Admin"
+    user.username = "admin"
+    user.password = "password"
+    user.isAdmin = 1
+    user.email = "admin@test.com"
+    user.save
   end
 
   def self.down
