@@ -1,6 +1,6 @@
 class SystemController < ApplicationController
   def index
-       @posts = Post.find_top_posts#paginate(:page => params[:page])
+       @posts = Post.find_top_posts
   end
 
   def add_vote
@@ -55,6 +55,5 @@ class SystemController < ApplicationController
       else
         @posts = Post.user_search(params[:search])
     end
-    #redirect_to(:action => :index, :search_by => params[:search_by], :search => params[:search])
   end
 end
