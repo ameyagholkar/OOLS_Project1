@@ -1,29 +1,42 @@
 <table class = "replies" border="0" cellpadding="5" style="padding-left: 30px" >
-    <tr class="tableHeader"><th colspan="3" align="left">Replies</th></tr>
+    <tr class="tableHeader"><th colspan="4" align="left">Replies</th></tr>
     <% if Post.find_replies(post).blank? %>
         <tr class = "reply"><td>No replies to this post yet!</td></tr>
     <% end %>
     <% Post.find_replies(post).each do |reply| %>
         <tr class = "reply">
-            <td colspan="3" style="word-break:break-all;"><b><%= h(get_username(reply.users_id)) %>  </b> says: <%= h(reply.description) %></td>
+            <td colspan="4" style="word-break:break-all;">
+
+             <% if session[:isAdmin] == 1 %>
+              <b><%= link_to "#{get_username(reply.users_id)}", :controller => :users, :action => :show, :id => reply.users_id %> </b>
+             <% else %>
+              <b><%= h(get_username(reply.users_id)) %>  </b>
+             <% end %>
+
+              : <%= h(reply.description) %></td>
         </tr>
         <tr class = "replyControls">
+                    <td width="240"><i>Replied on <%= h(reply.created_at.in_time_zone('Eastern Time (US & Canada)').strftime("%B %d, %Y %I:%M %p")) %></i></td>
           <% if session[:id] %>
             <% if check_your_post(session[:id],reply.id)==true %>
-            <td><%= button_to "" , {:action => :add_vote, :id => reply, :user_id => session[:id]}, {:class => "postButton",:title => 'Its your own reply!', :disabled => true} %></td>
+            <td width="30"><%= button_to "" , {:action => :add_vote, :id => reply, :user_id => session[:id]}, {:class => "postButton",:title => 'Its your own reply!', :disabled => true, :id => 'replyButton'} %></td>
             <% elsif check_more_vote(session[:id],reply.id) == true %>
-            <td><%= button_to "" , {:action => :add_vote, :id => reply, :user_id => session[:id]}, {:class => "postButton",:title => 'You have already voted!!', :disabled => true} %></td>
+            <td width="30"><%= button_to "" , {:action => :add_vote, :id => reply, :user_id => session[:id]}, {:class => "postButton",:title => 'You have already voted!!', :disabled => true, :id => 'replyButton'} %></td>
             <% else %>
-            <td><%= button_to "" , {:action => :add_vote, :id => reply, :user_id => session[:id]}, {:class => "postButton",:title => 'Vote for this Reply!'} %></td>
+            <td width="30"><%= button_to "" , {:action => :add_vote, :id => reply, :user_id => session[:id]}, {:class => "postButton",:title => 'Vote for this Reply!', :id => 'replyButton'} %></td>
             <% end %>
           <% end %>
 
             <% if session[:id] %>
                 <% if session[:isAdmin] == 1  %>
-                    <td><%= button_to "" , {:action => :destroy, :controller => :posts , :id => reply} , {:class => 'deletePostButton' , :title => 'Delete this reply!'} %></td>
+                    <td><%= button_to "" , {:action => :destroy, :controller => :posts , :id => reply} , {:class => 'deletePostButton' , :title => 'Delete this reply!', :id => 'deleteReplyButton', :confirm => "This will delete this reply once and for all. Do you want to delete?"} %></td>
                 <% end %>
             <% end %>
-            <td width=98% align="right">
+          <% if session[:isAdmin] == 1 %>
+            <td width=60% align="right">
+           <% else %>
+             <td width=75% align="right">
+           <% end %>
                 <% if reply.num_of_votes == 0 %>
                     <b>No users have voted for this reply. </b>
                 <% elsif reply.num_of_votes == 1 %>

@@ -20,15 +20,15 @@
           <% if session[:id] %>
             <% if check_your_post(session[:id],post.id)==true %>
                 <td style="padding-top: 20px">
-                    <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :disabled => true, :title => 'Its your own Post!' ,:method => 'post' %>
+                    <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :disabled => true, :title => 'Its your own Post!' ,:method => 'post', :id => 'postButton' %>
                 </td>
             <% elsif check_more_vote(session[:id],post.id) == true %>
                  <td style="padding-top: 20px">
-                    <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :disabled => true, :title => 'You have already voted!' ,:method => 'post' %>
+                    <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :disabled => true, :title => 'You have already voted!' ,:method => 'post', :id => 'postButton' %>
                 </td>
             <% else %>
                 <td style="padding-top: 20px">
-                    <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :title => 'Vote for this Post!' ,:method => 'post' %>
+                    <%= button_to "" , {:action => :add_vote, :id => post, :user_id => session[:id]},:class => 'postButton', :title => 'Vote for this Post!' ,:method => 'post', :id => 'postButton' %>
                 </td>
             <% end %>
           <% end %>
@@ -37,7 +37,7 @@
 
             <% if session[:id] %>
                 <% if session[:isAdmin] == 1  %>
-                    <td style="padding-top: 20px"><%= button_to "" , {:action => :destroy, :controller => :posts , :id => post} , :class => 'deletePostButton' , :title => 'Delete this Post!' %></td>
+                    <td style="padding-top: 20px"><%= button_to "" , {:action => :destroy, :controller => :posts , :id => post} , :class => 'deletePostButton' , :title => 'Delete this Post!', :id => 'deletePostButton' , :confirm => "This will delete this Post, its replies and its votes once and for all. Do you want to delete?"%></td>
                 <% end %>
             <% end %>
          <td width="500" align="right">

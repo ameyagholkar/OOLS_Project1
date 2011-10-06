@@ -1,4 +1,4 @@
-<% if session[:id] %>
+<% if session[:id] and session[:isAdmin] == 1%>
 <h1>LiveQuestion's User List</h1>
 <div class="borderedBox">
 <table>

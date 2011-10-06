@@ -53,6 +53,6 @@ class PostingTest < ActionDispatch::IntegrationTest
     assert page.has_content?("test post text")
     assert page.has_content?("No users have voted for this post.")
     assert page.has_content?("No replies to this post yet!")
-    assert find(".newPost")..has_content?("Enter text for new post here.")
+    assert find(".newPost").has_content?("Enter text for new post here.")
   end
 end
